@@ -1,4 +1,4 @@
-package impl;
+package com.grpc.demo.impl;
 
 import com.example.grpc.GreetServiceGrpc;
 import com.example.grpc.GreetServiceProto;
@@ -10,7 +10,9 @@ public class GreetServiceImpl extends GreetServiceGrpc.GreetServiceImplBase {
 
     @Override
     public void greet(GreetServiceProto.GreetRequest request, StreamObserver<GreetServiceProto.GreetResponse> responseObserver) {
-        String greeting = "Hello, " + request.getName() + "!";
+        String name = request.getName();
+        System.out.println("Received request with name: " + name); // Log request
+        String greeting = "Hello, " + name + "!";
         GreetServiceProto.GreetResponse response = GreetServiceProto.GreetResponse.newBuilder()
                 .setGreeting(greeting)
                 .build();
@@ -18,3 +20,4 @@ public class GreetServiceImpl extends GreetServiceGrpc.GreetServiceImplBase {
         responseObserver.onCompleted();
     }
 }
+
